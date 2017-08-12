@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("/common/head.vm")
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    #parse("/common/header.vm")
+<div class="wrapper">
+    #parse("/common/sidebar.vm")
+    <div class="content-wrapper">
+        $screen_content
+    </div>
+    #parse("/common/footer.vm")
+</div>
+
+<script>
+//    if(typeof angular1215 !== "undefined") {
+//        console.log("recovery angular1215 by footer");
+//        window.angular = angular1215;
+//    }
+
+//    angular.bootstrap($('#ng-monitor'),['monitor']);
+
+    if(typeof angular1315 !== "undefined") {
+        console.log("recovery angular1315 by footer");
+        window.angular = angular1315;
+    }
+</script>
+</body>
+</html>

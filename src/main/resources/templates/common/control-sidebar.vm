@@ -1,0 +1,142 @@
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <div style='padding:10px';>
+        <h4 class='control-sidebar-heading'>布局设置</h4>
+        <div class='form-group'>
+            <label class='control-sidebar-subheading'>
+                <input type='checkbox' data-layout='fixed' class='pull-right'/>
+                Fixed layout
+            </label>
+        </div>
+        <div class='form-group'>
+            <label class='control-sidebar-subheading'>
+                <input type='checkbox' data-layout='layout-boxed' class='pull-right'/>
+                Boxed layout
+            </label>
+        </div>
+        <div class='form-group'>
+            <label class='control-sidebar-subheading'>
+                <input type='checkbox' data-layout='sidebar-collapse' class='pull-right'/>
+                Toggle Sidebar
+            </label>
+        </div>
+        <div class='form-group'>
+            <label class='control-sidebar-subheading'>
+                <input type='checkbox' data-sidebarskin='toggle' class='pull-right'/>
+                Toggle Right Sidebar Skin
+            </label>
+        </div>
+        <h4 class='control-sidebar-heading'>皮肤设置</h4>
+        <ul class='list-unstyled clearfix'>
+            #set($skin_list={"Blue":"skin-blue",
+                "Blue Light":"skin-blue-light",
+                "Black":"skin-black",
+                "Black Light":"skin-black-light",
+                "Purple":"skin-purple",
+                "Purple Light":"skin-purple-light",
+                "Red":"skin-red",
+                "Red Light":"skin-red-light",
+                "Green":"skin-green",
+                "Green Light":"skin-green-light",
+                "Yellow":"skin-yellow",
+                "Yellow Light":"skin-yellow-light"})
+            #foreach ($skintext in $skin_list.keySet())
+                <li style="float:left; width: 33.33333%; padding: 5px;">
+                    #set($skininfo=$skin_list.get($skintext).split("-"))
+                    #if ($skininfo.size() == 2)
+                        #set($navbg='#222d32')
+                    #else
+                        #set($navbg='#f9fafc')
+                    #end
+                    <a href='javascript:void(0);' data-skin=$skin_list.get($skintext) style='display: block; box-shadow: 0 0 3px rgba(0,0,0,0.4)' class='skin-setter clearfix full-opacity-hover'>
+                    <div>
+                        <span style='display:block; width: 20%; float: left; height: 7px;' class='bg-$skininfo[1]-active'></span>
+                        <span class='bg-$skininfo[1]' style='display:block; width: 80%; float: left; height: 7px;'></span>
+                    </div>
+                    <div>
+                        <span style="display:block; width: 20%; float: left; height: 20px; background: $navbg;"></span>
+                        <span style='display:block; width: 80%; float: left; height: 20px; background: #f4f5f7;'></span>
+                    </div>
+                    </a>
+                    <p class='text-center no-margin'>$skintext</p>
+                </li>
+            #end
+        </ul>
+    </div>
+</aside>
+<!-- /.control-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
+     immediately after the control sidebar -->
+<div class="control-sidebar-bg"></div>
+<script>
+    var skins_list = [
+        "skin-blue",
+        "skin-black",
+        "skin-red",
+        "skin-yellow",
+        "skin-purple",
+        "skin-green",
+        "skin-blue-light",
+        "skin-black-light",
+        "skin-red-light",
+        "skin-yellow-light",
+        "skin-purple-light",
+        "skin-green-light"
+    ];
+    function change_skin(cls) {
+        console.log(cls);
+        $.each(skins_list, function (i) {
+            $("body").removeClass(skins_list[i]);
+        });
+
+        $("body").addClass(cls);
+        store('skin', cls);
+    }
+    function change_layout(cls) {
+        $("body").toggleClass(cls);
+    }
+
+    function store(name, val) {
+        if (typeof (Storage) !== "undefined") {
+            localStorage.setItem(name, val);
+        } else {
+            window.alert('Please use a modern browser to properly view this template!');
+        }
+    }
+
+    function get(name) {
+        if (typeof (Storage) !== "undefined") {
+            return localStorage.getItem(name);
+        } else {
+            window.alert('Please use a modern browser to properly view this template!');
+        }
+    }
+
+    var localskin=get('skin');
+
+    if (localskin && $.inArray(localskin, skins_list))
+        change_skin(localskin);
+
+    $(".skin-setter").on('click', function (e) {
+        e.preventDefault();
+        change_skin($(this).data('skin'));
+    });
+
+    $("[data-layout]").on('click', function () {
+        change_layout($(this).data('layout'));
+    });
+
+
+    $("[data-sidebarskin='toggle']").on('click', function () {
+        var sidebar = $(".control-sidebar");
+        if (sidebar.hasClass("control-sidebar-dark")) {
+            sidebar.removeClass("control-sidebar-dark")
+            sidebar.addClass("control-sidebar-light")
+        } else {
+            sidebar.removeClass("control-sidebar-light")
+            sidebar.addClass("control-sidebar-dark")
+        }
+    });
+
+
+</script>
