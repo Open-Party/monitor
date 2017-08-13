@@ -5,12 +5,13 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-    #parse("/common/header.vm")
 <div class="wrapper">
+    #parse("/common/header.vm")
     #parse("/common/sidebar.vm")
     <div class="content-wrapper">
         $screen_content
     </div>
+    #parse("/common/control-sidebar.vm")
     #parse("/common/footer.vm")
 </div>
 
