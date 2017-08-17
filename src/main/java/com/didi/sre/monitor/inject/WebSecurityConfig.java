@@ -1,4 +1,4 @@
-package com.github.carter659.spring13;
+package com.didi.sre.monitor.inject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +11,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-/**
- * 登录配置 博客出处：http://www.cnblogs.com/GoodHelper/
- *
- */
 @Configuration
 public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 
@@ -30,7 +26,7 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 
 	public void addInterceptors(InterceptorRegistry registry) {
 		InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
-ll
+
 		// 排除配置
 		addInterceptor.excludePathPatterns("/error");
 		addInterceptor.excludePathPatterns("/login**");
