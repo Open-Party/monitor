@@ -16,4 +16,9 @@ public class HomeIndexController {
     public String getIndexHome(Model model, HttpServletRequest request) {
         return "home/index";
     }
+
+    @RequestMapping(value = {"/login", "/login.html"}, method = RequestMethod.GET)
+    public String getIndexLogin(Model model, HttpServletRequest request) {
+        return "home/login";
+    }
 }

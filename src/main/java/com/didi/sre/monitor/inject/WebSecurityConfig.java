@@ -28,8 +28,9 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 		InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
 
 		// 排除配置
-		addInterceptor.excludePathPatterns("/error");
+		//addInterceptor.excludePathPatterns("/error");
 		addInterceptor.excludePathPatterns("/login**");
+		//addInterceptor.excludePathPatterns("/index**");
 
 		// 拦截配置
 		addInterceptor.addPathPatterns("/**");
