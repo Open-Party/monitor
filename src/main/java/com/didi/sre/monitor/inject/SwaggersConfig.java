@@ -33,7 +33,7 @@ public class SwaggersConfig {
                 .title("Monitor REST API")
                 .description("")
                 .termsOfServiceUrl("https://github.com/Open-Party/monitor")
-                .contact("")
+                .contact("soarpenguin@gmail.com")
                 .version("1.0")
                 .build();
     }
