@@ -34,11 +34,11 @@ public class VelocityLayoutConfig {
         return resolver;
     }
 
-    private static String getIp(){
+    private static String getIp() {
         InetAddress addr;
-        try{
+        try {
             addr = InetAddress.getLocalHost();
-        } catch (UnknownHostException ex){
+        } catch (UnknownHostException ex) {
             return null;
         }
         return addr.getHostAddress();
