@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class HttpErrorController implements ErrorController{
      private static final String ERROR_PATH = "/error";
 
-     @RequestMapping(value=ERROR_PATH)
+     @RequestMapping(value=ERROR_PATH, method = RequestMethod.GET)
      public String handleError(Model model, HttpServletRequest request){
          HttpStatus status = getStatus(request);
          if(status.is4xxClientError()) {
@@ -25,6 +26,7 @@ public class HttpErrorController implements ErrorController{
          }
          return ERROR_PATH;
      }
+
      @Override
      public String getErrorPath() {
          return ERROR_PATH;

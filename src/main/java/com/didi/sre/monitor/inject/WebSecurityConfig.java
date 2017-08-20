@@ -32,9 +32,11 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 		addInterceptor.excludePathPatterns("/login**");
 		addInterceptor.excludePathPatterns("/register**");
 		addInterceptor.excludePathPatterns("/index**");
+		addInterceptor.excludePathPatterns("/swagger/**");
+		addInterceptor.excludePathPatterns("/**");
 
 		// 拦截配置
-		addInterceptor.addPathPatterns("/**");
+		//addInterceptor.addPathPatterns("/**");
 	}
 
 	private class SecurityInterceptor extends HandlerInterceptorAdapter {
