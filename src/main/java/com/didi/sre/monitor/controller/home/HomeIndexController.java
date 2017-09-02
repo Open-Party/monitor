@@ -19,7 +19,7 @@ public class HomeIndexController {
     private static Logger logger = Logger.getLogger(HomeIndexController.class);
 
     @ApiOperation(value="Get index page.",notes="requires noting")
-    @RequestMapping(value = {"/", "/index", "/index.html"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index", "/index.html"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String getIndexHome(Model model, HttpServletRequest request) {
         return "home/index";
     }
