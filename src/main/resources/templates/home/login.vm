@@ -105,10 +105,10 @@
                     },
                     dataType: "json",
                     success: function (data) {
-                        if (data.result == "1") {
+                        if (data.success) {
                             window.location.href = "/index";
                         } else {
-                            alert("Login failed.");
+                            alert(data.data);
                         }
                     }
                 });
