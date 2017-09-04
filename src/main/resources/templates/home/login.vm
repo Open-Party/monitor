@@ -11,7 +11,7 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/plugins/font-awesome-4.7.0css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
     <!-- Ionicons -->
 ##  <link rel="stylesheet" href="/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -42,7 +42,7 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="passwd" class="form-control" placeholder="Password">
+                <input type="password" name="password" class="form-control" placeholder="Password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -55,7 +55,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button id="btlogin" type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button id="btlogin" type="button" class="btn btn-primary btn-block btn-flat">Sign In</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -81,7 +81,7 @@
 <!-- iCheck -->
 <script src="/plugins/iCheck/icheck.min.js"></script>
 <script>
-    $(function () {
+    $(document).ready(function() {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
@@ -89,16 +89,15 @@
         });
 
         $('#btlogin').click(function (e) {
-            //e.preventDefault();
             var username = $('input[name=username]').val();
-            var password = $('input[name=passwd]').val();
+            var password = $('input[name=password]').val();
 
             if(username != "" && password != "") {
                 $('#btlogin').prop('disabled', true);
                 $.ajax({
                     type: "POST",
                     url: "/doLogin",
-
+                    async:false,  // can't remove, firefox redirect.
                     data: {
                         "username": username,
                         "password": password
@@ -114,7 +113,6 @@
                 });
             } else {
                 alert("Please check username and password.");
-                window.location.href = "/index";
             }
         });
     });
