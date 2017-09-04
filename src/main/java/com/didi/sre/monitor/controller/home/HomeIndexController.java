@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static com.didi.sre.monitor.inject.WebSecurityConfig.SESSION_KEY;
 
 /**
  * Created by soarpenguin on 17-8-12.
@@ -30,14 +33,18 @@ public class HomeIndexController {
 
     @RequestMapping(value = {"/login", "/login.html"}, method = RequestMethod.GET)
     public String getIndexLogin(Model model, HttpServletRequest request) {
-        return "home/login";
+        if(request.getSession().getAttribute(SESSION_KEY) != null) {
+            return "redirect:/";
+        } else {
+            return "home/login";
+        }
     }
 
     @RequestMapping(value = {"/doLogin"}, method = RequestMethod.POST)
     @ResponseBody
     public JsonResult getIndexToLogin(Model model, HttpServletRequest request,
-                                      @RequestParam(value = "username", required = true)  String username,
-                                      @RequestParam(value = "password", required = true)  String password) {
+                                      @RequestParam(value = "username")  String username,
+                                      @RequestParam(value = "password")  String password) {
         JsonResult jsonResult = new JsonResult(false);
 
         if(!username.equals("") && password != "") {
@@ -53,6 +60,16 @@ public class HomeIndexController {
         }
 
         return jsonResult;
+    }
+
+    @RequestMapping(value = {"/signOut"}, method = RequestMethod.GET)
+    public String doSignOut(Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        if (session.getAttribute(SESSION_KEY) != null)
+            session.removeAttribute(SESSION_KEY);
+
+        return "redirect:/login";
     }
 
     @RequestMapping(value = {"/register", "/register.html"}, method = RequestMethod.GET)
