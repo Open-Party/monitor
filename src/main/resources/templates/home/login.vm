@@ -111,12 +111,12 @@
                         }
                     }
                 });
+                $('#btlogin').prop('disabled', false);
             } else {
                 alert("Please check username and password.");
             }
         });
     });
-
 
 </script>
 </body>

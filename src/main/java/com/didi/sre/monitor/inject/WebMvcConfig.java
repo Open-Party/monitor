@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Configuration
-public class WebSecurityConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	/**
 	 * 登录session key
@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 		addInterceptor.excludePathPatterns("/login**");
 		addInterceptor.excludePathPatterns("/doLogin**");
 		addInterceptor.excludePathPatterns("/register**");
+		addInterceptor.excludePathPatterns("/doRegister**");
 		addInterceptor.excludePathPatterns("/swagger/**");
 		addInterceptor.excludePathPatterns("/openapi/health");
 
@@ -66,12 +67,5 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
                 throws Exception {
         }
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-            .withUser("yef.zhu@gmail.com").password("12345678").roles("USER");
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static com.didi.sre.monitor.inject.WebSecurityConfig.SESSION_KEY;
+import static com.didi.sre.monitor.inject.WebMvcConfig.SESSION_KEY;
 
 /**
  * Created by soarpenguin on 17-8-12.
@@ -26,12 +26,12 @@ public class HomeIndexController {
     private static Logger logger = Logger.getLogger(HomeIndexController.class);
 
     @ApiOperation(value="Get index page.",notes="requires noting")
-    @RequestMapping(value = {"/", "/index", "/index.html"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String getIndexHome(Model model, HttpServletRequest request) {
         return "home/index";
     }
 
-    @RequestMapping(value = {"/login", "/login.html"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String getIndexLogin(Model model, HttpServletRequest request) {
         if(request.getSession().getAttribute(SESSION_KEY) != null) {
             return "redirect:/";
@@ -72,8 +72,16 @@ public class HomeIndexController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = {"/register", "/register.html"}, method = RequestMethod.GET)
-    public String getIndexRegister(Model model, HttpServletRequest request) {
+    @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
+    public String getRegister(Model model, HttpServletRequest request) {
         return "home/register";
+    }
+
+    @RequestMapping(value = "/doRegister", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult doRegister(Model model, HttpServletRequest request,
+                                 @RequestParam(value = "username")  String username,
+                                 @RequestParam(value = "password")  String password) {
+        return new JsonResult(true);
     }
 }
