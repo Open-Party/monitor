@@ -36,6 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/signOut")
                 .logoutSuccessUrl("/login") //退出登录后的默认网址是/login
+                .invalidateHttpSession(true)
                 .permitAll();
 //           .and()
 //              .rememberMe()//登录后记住用户，下次自动登录,数据库中必须存在名为persistent_logins的表
