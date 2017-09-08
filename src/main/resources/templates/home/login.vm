@@ -38,11 +38,11 @@
 
         <form action="/doLogin" method="post">
             <div class="form-group has-feedback">
-                <input type="email" name="username" class="form-control" placeholder="Email">
+                <input type="email" name="username" id="username" class="form-control" placeholder="Email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -55,7 +55,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button id="btlogin" type="button" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button id="btlogin" type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -87,37 +87,7 @@
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
-
-        $('#btlogin').click(function (e) {
-            var username = $('input[name=username]').val();
-            var password = $('input[name=password]').val();
-
-            if(username != "" && password != "") {
-                $('#btlogin').prop('disabled', true);
-                $.ajax({
-                    type: "POST",
-                    url: "/doLogin",
-                    async:false,  // can't remove, firefox redirect.
-                    data: {
-                        "username": username,
-                        "password": password
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.success) {
-                            window.location.href = "/index";
-                        } else {
-                            alert(data.data);
-                        }
-                    }
-                });
-                $('#btlogin').prop('disabled', false);
-            } else {
-                alert("Please check username and password.");
-            }
-        });
     });
-
 </script>
 </body>
 </html>

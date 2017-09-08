@@ -33,11 +33,7 @@ public class HomeIndexController {
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String getIndexLogin(Model model, HttpServletRequest request) {
-        if(request.getSession().getAttribute(SESSION_KEY) != null) {
-            return "redirect:/";
-        } else {
-            return "home/login";
-        }
+        return "home/login";
     }
 
     @RequestMapping(value = {"/doLogin"}, method = RequestMethod.POST)

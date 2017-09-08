@@ -29,18 +29,18 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	}
 
 	public void addInterceptors(InterceptorRegistry registry) {
-		InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
-
-		// 排除配置
-		addInterceptor.excludePathPatterns("/login**");
-		addInterceptor.excludePathPatterns("/doLogin**");
-		addInterceptor.excludePathPatterns("/register**");
-		addInterceptor.excludePathPatterns("/doRegister**");
-		addInterceptor.excludePathPatterns("/swagger/**");
-		addInterceptor.excludePathPatterns("/openapi/health");
-
-		// 拦截配置
-		addInterceptor.addPathPatterns("/**");
+//		InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
+//
+//		// 排除配置
+//		addInterceptor.excludePathPatterns("/login**");
+//		addInterceptor.excludePathPatterns("/doLogin**");
+//		addInterceptor.excludePathPatterns("/register**");
+//		addInterceptor.excludePathPatterns("/doRegister**");
+//		addInterceptor.excludePathPatterns("/swagger/**");
+//		addInterceptor.excludePathPatterns("/openapi/health");
+//
+//		// 拦截配置
+//		addInterceptor.addPathPatterns("/**");
 	}
 
 	private class SecurityInterceptor extends HandlerInterceptorAdapter {
@@ -48,14 +48,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		@Override
 		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 				throws Exception {
-			HttpSession session = request.getSession();
-			if (session.getAttribute(SESSION_KEY) != null)
-				return true;
-
-			// 跳转登录
-			String url = "/login";
-			response.sendRedirect(url);
-			return false;
+//			HttpSession session = request.getSession();
+//			if (session.getAttribute(SESSION_KEY) != null)
+//				return true;
+//
+//			// 跳转登录
+//			String url = "/login";
+//			response.sendRedirect(url);
+//			return false;
+			return true;
 		}
 
         @Override
