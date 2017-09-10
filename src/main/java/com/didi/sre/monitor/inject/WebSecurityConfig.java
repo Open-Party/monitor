@@ -1,15 +1,29 @@
 package com.didi.sre.monitor.inject;
 
 import com.didi.sre.monitor.service.user.SysUserService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
+import org.springframework.security.web.util.RedirectUrlBuilder;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by soarpenguin on 9/5/17.
@@ -20,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static Logger logger = Logger.getLogger(WebSecurityConfig.class);
 
     @Bean
-    UserDetailsService customUserService() { //注册UserDetailsService 的bean
+    UserDetailsService customUserService() { // 注册UserDetailsService
         return new SysUserService();
     }
 
@@ -36,29 +50,120 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.jee().disable();
+        http.x509().disable();
 
         http
                 .authorizeRequests()
                 .antMatchers("/login", "/doLogin", "/register", "/doRegister", "/swagger/**", "/openapi/health", "/plugins/**", "/bootstrap/**", "/dist/**")
                 .permitAll()
-                .anyRequest().authenticated() //其他所有资源都需要认证，登陆后访问
-                //.antMatchers("/hello").hasAuthority("ADMIN") //登陆后之后拥有“ADMIN”权限才可以访问, 否则系统会出现“403”权限不足的提示
+                .anyRequest().authenticated()
+                //.antMatchers("/hello").hasAuthority("ADMIN")
             .and()
                 .formLogin()
-                .loginPage("/login")//指定登录页是"/login"
+                .loginPage("/login")
                 .loginProcessingUrl("/doLogin")
-                .defaultSuccessUrl("/index")//登陆成功路径
-                //.failureUrl("/login")//登陆失败路径
+                .defaultSuccessUrl("/index")
+                .failureUrl("/login")
                 .permitAll()
-                //.successHandler(loginSuccessHandler()) //登录成功后可使用loginSuccessHandler()存储用户信息,可选。
+                .successHandler(new AuthenticationSuccessHandler())
             .and()
                 .logout()
                 .logoutUrl("/signOut")
                 .logoutSuccessUrl("/login") //退出登录后的默认网址是/login
                 .invalidateHttpSession(true)
+                .logoutSuccessHandler(new LogoutSuccessHandler())
                 .permitAll();
 //           .and()
-//              .rememberMe()//登录后记住用户，下次自动登录,数据库中必须存在名为persistent_logins的表
+//              .rememberMe()//登录后记住用户,下次自动登录,数据库中必须存在名为persistent_logins的表
 //              .tokenValiditySeconds(1209600);
+    }
+
+    protected boolean isAjax(HttpServletRequest request) {
+        return StringUtils.isNotBlank(request.getHeader("X-Requested-With"));
+    }
+
+
+    private class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+        @Override
+        public void onAuthenticationSuccess(HttpServletRequest request,
+                                            HttpServletResponse response, Authentication authentication)
+                throws ServletException, IOException {
+
+            clearAuthenticationAttributes(request);
+
+            String ru = (String) request.getSession().getAttribute("ru");
+            request.getSession().removeAttribute("ru");
+
+            if (StringUtils.isNotEmpty(ru)) {
+                response.sendRedirect(ru);
+            }
+
+            if (!isAjax(request)) {
+                super.onAuthenticationSuccess(request, response, authentication);
+            }
+        }
+    }
+
+    private class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
+
+        @Override
+        public void onLogoutSuccess(HttpServletRequest request,
+                                    HttpServletResponse response, Authentication authentication)
+                throws IOException, ServletException {
+
+            if (!isAjax(request)) {
+                super.onLogoutSuccess(request, response, authentication);
+            }
+        }
+    }
+
+    private class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
+        @Override
+        public void commence(HttpServletRequest request,
+                             HttpServletResponse response,
+                             AuthenticationException authException) throws IOException, ServletException {
+            String returnUrl = buildHttpReturnUrlForRequest(request);
+            request.getSession().setAttribute("ru", returnUrl);
+
+            response.setCharacterEncoding("utf-8");
+            if (isAjax(request)) {
+                response.getWriter().println("请登录");
+            } else {
+                response.sendRedirect("/login");
+            }
+
+        }
+    }
+
+    protected String buildHttpReturnUrlForRequest(HttpServletRequest request)
+            throws IOException, ServletException {
+
+
+        RedirectUrlBuilder urlBuilder = new RedirectUrlBuilder();
+        urlBuilder.setScheme("http");
+        urlBuilder.setServerName(request.getServerName());
+        urlBuilder.setPort(request.getServerPort());
+        urlBuilder.setContextPath(request.getContextPath());
+        urlBuilder.setServletPath(request.getServletPath());
+        urlBuilder.setPathInfo(request.getPathInfo());
+        urlBuilder.setQuery(request.getQueryString());
+
+        return urlBuilder.getUrl();
+    }
+
+    private class MyAccessDeniedHandler implements AccessDeniedHandler {
+        @Override
+        public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+            response.setCharacterEncoding("utf-8");
+            if (isAjax(request)) {
+                response.getWriter().println("您无权访问");
+            } else {
+                response.sendRedirect("/403");
+            }
+
+        }
     }
 }

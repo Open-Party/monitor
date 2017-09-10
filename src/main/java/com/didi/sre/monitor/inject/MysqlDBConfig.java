@@ -19,10 +19,10 @@ public class MysqlDBConfig {
     @Bean(name="dataSource")
     public ComboPooledDataSource dataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setDriverClass(env.getProperty("spring.db.driverClassName"));
-        dataSource.setJdbcUrl(env.getProperty("spring.db.url"));
-        dataSource.setUser(env.getProperty("spring.db.username"));
-        dataSource.setPassword(env.getProperty("spring.db.password"));
+        dataSource.setDriverClass(env.getProperty("spring.datasource.driverClassName"));
+        dataSource.setJdbcUrl(env.getProperty("spring.datasource.url"));
+        dataSource.setUser(env.getProperty("spring.datasource.username"));
+        dataSource.setPassword(env.getProperty("spring.datasource.password"));
         dataSource.setMaxPoolSize(20);
         dataSource.setMinPoolSize(5);
         dataSource.setInitialPoolSize(10);
