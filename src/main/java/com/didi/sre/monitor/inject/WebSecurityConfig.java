@@ -1,11 +1,15 @@
 package com.didi.sre.monitor.inject;
 
+import com.didi.sre.monitor.service.user.SysUserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Created by soarpenguin on 9/5/17.
@@ -13,6 +17,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private static Logger logger = Logger.getLogger(WebSecurityConfig.class);
+
+    @Bean
+    UserDetailsService customUserService() { //注册UserDetailsService 的bean
+        return new SysUserService();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//            .inMemoryAuthentication()
+//            .withUser("test@gmail.com").password("12345678").roles("USER");
+
+        auth.userDetailsService(customUserService()); //user Details Service验证
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,12 +60,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //           .and()
 //              .rememberMe()//登录后记住用户，下次自动登录,数据库中必须存在名为persistent_logins的表
 //              .tokenValiditySeconds(1209600);
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-            .withUser("test@gmail.com").password("12345678").roles("USER");
     }
 }
