@@ -25,19 +25,19 @@ public class SysUserService implements UserDetailsService {
     SysUserDao sysUserDao;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        logger.info("User: " + username + "is checking auth.");
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("User: " + username + " is checking auth now.");
+
         SysUserEntity user = sysUserDao.findByUserName(username);
-        if(user == null){
+        if(user == null) {
             logger.warn("Username: " + username + " is not existed;");
-            throw new UsernameNotFoundException("用户名不存在");
+            throw new UsernameNotFoundException("UserName " + username + " not found.");
         }
+
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        // 用于添加用户的权限。只要把用户权限添加到authorities就万事大吉。
-        for(SysRoleEntity role:user.getRoles())
-        {
+        for(SysRoleEntity role:user.getRoles()) {
+            logger.debug("User role is: " + role.getName());
             authorities.add(new SimpleGrantedAuthority(role.getName()));
-            System.out.println(role.getName());
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }

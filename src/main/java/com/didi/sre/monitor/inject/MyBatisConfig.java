@@ -23,7 +23,6 @@ public class MyBatisConfig {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setTypeAliasesPackage("com.didi.sre.monitor.model");
-        // sessionFactory.setPlugins(new Interceptor[]{new PageInterceptor()});
         sessionFactory.setMapperLocations(applicationContext.getResources("classpath*:mapper/**/*.xml"));
         return sessionFactory;
     }

@@ -38,7 +38,7 @@ public class HomeIndexController {
 
     @RequestMapping(value = {"/doLogin"}, method = RequestMethod.POST)
     @ResponseBody
-    public JsonResult getIndexToLogin(Model model, HttpServletRequest request,
+    public JsonResult doLogin(Model model, HttpServletRequest request,
                                       @RequestParam(value = "username")  String username,
                                       @RequestParam(value = "password")  String password) {
         JsonResult jsonResult = new JsonResult(false);
