@@ -11,7 +11,7 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
@@ -29,27 +29,27 @@
 <body class="hold-transition register-page">
 <div class="register-box">
     <div class="register-logo">
-        <a href="/index.html"><b>Admin</b>LTE</a>
+        <a href="/index"><b>Admin</b>LTE</a>
     </div>
 
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
 
-        <form action="/index.html" method="post">
+        <form action="/doRegister" method="post">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Full name">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Full name" required autofocus>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" id="password" name="password"  class="form-control" placeholder="Password" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Retype password">
+                <input type="password" id="rpassword" name="rpassword" class="form-control" placeholder="Retype password" required>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
             <div class="row">
@@ -62,7 +62,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                    <button type="button" id="btnregister" name="btnregister" class="btn btn-primary btn-block btn-flat">Register</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -87,6 +87,44 @@
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
+
+        $('#btnregister').click(function (e) {
+            var username = $('input[name=username]').val();
+            var email = $('input[name=email]').val();
+            var password = $('input[name=password]').val();
+            var rpassword = $('input[name=rpassword]').val();
+
+            if (password != rpassword) {
+                alert("Retype password not equals.");
+                return;
+            }
+
+            if (username != "" && password != "" && email != "") {
+                $('#btnregister').prop('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    url: "/doRegister",
+                    async: false,  // can't remove, firefox redirect.
+                    data: {
+                        "username": username,
+                        "email" : email,
+                        "password": password
+                    },
+                    //dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = "/login";
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+                $('#btnregister').prop('disabled', false);
+            } else {
+                alert("Please check username, email and password.");
+            }
+        });
+
     });
 </script>
 </body>

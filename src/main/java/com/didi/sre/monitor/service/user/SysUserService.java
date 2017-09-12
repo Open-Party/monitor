@@ -1,6 +1,7 @@
 package com.didi.sre.monitor.service.user;
 
 import com.didi.sre.monitor.mapper.user.SysUserDao;
+import com.didi.sre.monitor.model.common.JsonResult;
 import com.didi.sre.monitor.model.user.SysRoleEntity;
 import com.didi.sre.monitor.model.user.SysUserEntity;
 import org.apache.log4j.Logger;
@@ -40,5 +41,24 @@ public class SysUserService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+    }
+
+    public JsonResult insertSysUserEntity(SysUserEntity sysUserEntity) {
+        JsonResult jsonResult = new JsonResult(false);
+
+        if(sysUserEntity != null) {
+            SysUserEntity user = sysUserDao.findByUserName(sysUserEntity.getUsername());
+            if (user != null) {
+                jsonResult.setMessage("User " + sysUserEntity.getUsername() + " is existed.");
+                jsonResult.setSuccess(false);
+            } else {
+                sysUserDao.insertSysUserEntity(sysUserEntity);
+                jsonResult.setSuccess(true);
+            }
+        } else {
+            jsonResult.setMessage("User object is null!");
+        }
+
+        return jsonResult;
     }
 }

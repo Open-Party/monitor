@@ -2,6 +2,8 @@ package com.didi.sre.monitor.mapper.user;
 
 import com.didi.sre.monitor.annotation.Mapper;
 import com.didi.sre.monitor.model.user.SysUserEntity;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * Created by soarpenguin on 17-9-9.
@@ -9,5 +11,15 @@ import com.didi.sre.monitor.model.user.SysUserEntity;
 @Mapper
 public interface SysUserDao {
     SysUserEntity findByUserName(String username);
+
+    //@Insert()
+    void insertSysUserEntity(SysUserEntity sysUserEntity);
+
+    @Update("UPDATE SysUser SET email=#{email}, password=#{password} WHERE username=#{username}")
+    void updateSysUserEntity(@Param("email") String email,
+                             @Param("password") String password,
+                             @Param("username") String username);
+
+
 }
 
