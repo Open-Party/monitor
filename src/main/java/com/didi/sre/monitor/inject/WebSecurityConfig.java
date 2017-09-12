@@ -1,9 +1,9 @@
 package com.didi.sre.monitor.inject;
 
+import com.didi.sre.monitor.model.common.MD5PasswordEncoder;
 import com.didi.sre.monitor.service.user.SysUserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
@@ -40,11 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//            .inMemoryAuthentication()
-//            .withUser("test@gmail.com").password("12345678").roles("USER");
-
-        auth.userDetailsService(customUserService()); //user Details Service验证
+        auth.userDetailsService(customUserService()).passwordEncoder(passwordEncoder()); //user Details Service auth.
+        auth.eraseCredentials(false);
     }
 
     @Override
@@ -73,16 +70,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login") //退出登录后的默认网址是/login
                 .invalidateHttpSession(true)
                 .logoutSuccessHandler(new LogoutSuccessHandler())
-                .permitAll();
-//           .and()
-//              .rememberMe()//登录后记住用户,下次自动登录,数据库中必须存在名为persistent_logins的表
-//              .tokenValiditySeconds(1209600);
+                .permitAll()
+           .and()
+              .rememberMe()//登录后记住用户,下次自动登录,数据库中必须存在名为persistent_logins的表
+              .tokenValiditySeconds(1209600);
+    }
+
+    @Bean
+    public MD5PasswordEncoder passwordEncoder() {
+        return new MD5PasswordEncoder();
     }
 
     protected boolean isAjax(HttpServletRequest request) {
         return StringUtils.isNotBlank(request.getHeader("X-Requested-With"));
     }
-
 
     private class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 

@@ -1,6 +1,7 @@
 package com.didi.sre.monitor.controller.home;
 
 import com.didi.sre.monitor.model.common.JsonResult;
+import com.didi.sre.monitor.model.common.MD5PasswordEncoder;
 import com.didi.sre.monitor.model.user.SysUserEntity;
 import com.didi.sre.monitor.service.user.SysUserService;
 import io.swagger.annotations.Api;
@@ -84,12 +85,14 @@ public class HomeIndexController {
                                  @RequestParam(value = "username")  String username,
                                  @RequestParam(value = "email") String email,
                                  @RequestParam(value = "password")  String password) {
-        JsonResult jsonResult = new JsonResult(false);
+
+        MD5PasswordEncoder md5PasswordEncoder = new MD5PasswordEncoder();
+        String encoderPassword = md5PasswordEncoder.encode(password);
 
         SysUserEntity user = new SysUserEntity();
         user.setUsername(username);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(encoderPassword);
 
         return sysUserService.insertSysUserEntity(user);
     }

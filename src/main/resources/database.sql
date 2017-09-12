@@ -12,8 +12,8 @@ create table SysRoleUser (id  int not null auto_increment,
   SysUserId int not null, SysRoleId int not null, primary key(id)) ENGINE=InnoDB;
 
 
-insert into SysUser(username, email, password) values ('admin', 'admin@gmail.com', 'admin');
-insert into SysUser(username, email, password) values ('test', 'test@gmail.com', 'test');
+insert into SysUser(username, email, password) values ('admin', 'admin@gmail.com', 'ISMvKXpXpadDiUoOSoAfww');
+insert into SysUser(username, email, password) values ('test', 'test@gmail.com', 'CY9rzUYh03PK3k6DJie09g');
 
 insert into SysRole(name) values('ROLE_ADMIN');
 insert into SysRole(name) values('ROLE_USER');
