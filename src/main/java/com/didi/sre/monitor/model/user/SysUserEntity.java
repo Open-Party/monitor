@@ -6,17 +6,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by soarpenguin on 17-8-24.
  */
-public class SysUserEntity implements UserDetails {
+public class SysUserEntity implements UserDetails, java.io.Serializable {
     private Long id;
     private String username;
+    private String email;
     private String password;
+    private Date dob;
 
     private List<SysRoleEntity> roles;
+
+    public SysUserEntity() {
+    }
+
+    public SysUserEntity(String name, String email, String password, Date dob, List<SysRoleEntity> roles) {
+        this.username = name;
+        this.email = email;
+        this.password = password;
+        this.dob = dob;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
@@ -60,6 +74,22 @@ public class SysUserEntity implements UserDetails {
     @Override
     public String getUsername() {
         return this.username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     @Override

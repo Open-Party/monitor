@@ -4,6 +4,7 @@
     <resultMap id="userMap" type="com.didi.sre.monitor.model.user.SysUserEntity">
         <id property="id" column="ID"/>
         <result property="username" column="USERNAME"/>
+        <result property="email" column="EMAIL"/>
         <result property="password" column="PASSWORD"/>
         <collection property="roles" ofType="com.didi.sre.monitor.model.user.SysRoleEntity">
             <result property="name" column="NAME"/>
@@ -17,4 +18,18 @@
         LEFT JOIN SysRole r on sru.SysRoleId=r.id
         where username=#{username}
     </select>
+
+    <insert id="insertSysUserEntity" parameterType="com.didi.sre.monitor.model.user.SysUserEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO SysUser(
+            username,
+            email,
+            password
+        )
+        values (
+            #{username},
+            #{email},
+            #{password}
+        )
+    </insert>
+
 </mapper>

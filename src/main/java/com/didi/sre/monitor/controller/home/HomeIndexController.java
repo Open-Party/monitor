@@ -2,8 +2,10 @@ package com.didi.sre.monitor.controller.home;
 
 import com.didi.sre.monitor.model.common.JsonResult;
 import com.didi.sre.monitor.model.user.SysUserEntity;
+import com.didi.sre.monitor.service.user.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.apache.log4j.Logger;
 import org.springframework.ui.Model;
@@ -24,6 +26,9 @@ import static com.didi.sre.monitor.inject.WebMvcConfig.SESSION_KEY;
 @Api(value = "Home")
 public class HomeIndexController {
     private static Logger logger = Logger.getLogger(HomeIndexController.class);
+
+    @Autowired
+    SysUserService sysUserService;
 
     @ApiOperation(value="Get index page.",notes="requires noting")
     @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.POST, RequestMethod.GET})
@@ -77,7 +82,15 @@ public class HomeIndexController {
     @ResponseBody
     public JsonResult doRegister(Model model, HttpServletRequest request,
                                  @RequestParam(value = "username")  String username,
+                                 @RequestParam(value = "email") String email,
                                  @RequestParam(value = "password")  String password) {
-        return new JsonResult(true);
+        JsonResult jsonResult = new JsonResult(false);
+
+        SysUserEntity user = new SysUserEntity();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(password);
+
+        return sysUserService.insertSysUserEntity(user);
     }
 }
