@@ -16,10 +16,8 @@ public interface SysUserDao {
     void insertSysUserEntity(SysUserEntity sysUserEntity);
 
     @Update("UPDATE SysUser SET email=#{email}, password=#{password} WHERE username=#{username}")
-    void updateSysUserEntity(@Param("email") String email,
-                             @Param("password") String password,
-                             @Param("username") String username);
-
+    void updateSysUserEntity( @Param("username") String username,
+            @Param("email") String email, @Param("password") String password);
 
 }
 

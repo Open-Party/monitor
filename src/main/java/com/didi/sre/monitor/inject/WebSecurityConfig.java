@@ -33,6 +33,13 @@ import java.io.IOException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static Logger logger = Logger.getLogger(WebSecurityConfig.class);
 
+    private static final String[] ignorePathMatchers = new String[]{
+        "/login", "/doLogin", "/register", "/doRegister", "/swagger/**", "/openapi/health",
+        "/plugins/**/*.js", "/plugins/**/*.css", "/plugins/**/*.png",
+        "/bootstrap/**/*.js", "/bootstrap/**/*.css", "/bootstrap/**/*.woff2",
+        "/dist/**/*.js", "/dist/**/*.css"
+    };
+
     @Bean
     UserDetailsService customUserService() { // 注册UserDetailsService
         return new SysUserService();
@@ -52,7 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/doLogin", "/register", "/doRegister", "/swagger/**", "/openapi/health", "/plugins/**", "/bootstrap/**", "/dist/**")
+                //.antMatchers("/login", "/doLogin", "/register", "/doRegister", "/swagger/**", "/openapi/health", "/plugins/**", "/bootstrap/**", "/dist/**")
+                .antMatchers(ignorePathMatchers)
                 .permitAll()
                 .anyRequest().authenticated()
                 //.antMatchers("/hello").hasAuthority("ADMIN")
