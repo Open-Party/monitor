@@ -1,0 +1,173 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Account
+        <small>Account panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Account</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Data Table With Full Features</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="userListTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>UserName</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+<link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+//    $(function () {
+//        $("#orderdataTable").DataTable();
+//        $('#example2').DataTable({
+//            "paging": true,
+//            "lengthChange": false,
+//            "searching": false,
+//            "ordering": true,
+//            "info": true,
+//            "autoWidth": false
+//        });
+//    });
+
+    $(document).ready(function() {
+        getUserListData();
+    });
+
+    function getUserListData() {
+        $.ajax({
+            type: "POST",
+            url: "/account/userjson",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            //async: false,  // can't remove, firefox redirect.
+            success: function (obj) {
+                if (obj.success) {
+                    var userList = obj.data;
+                    showUserListTable(userList);
+                } else {
+                    showUserListTable([]);
+                }
+            },
+        });
+    };
+
+    function showUserListTable(userList) {
+        var aadata = new Array();
+        if (userList.length != 0) {
+            for (var i = 0; i < userList.length; i++) {
+                var userdata = new Array();
+                userdata.push(userList[i].id);
+                userdata.push(userList[i].username);
+                userdata.push(userList[i].email);
+                userdata.push(userList[i].password);
+                userdata.push(userList[i].dob);
+                aadata.push(userdata);
+            }
+        }
+
+        $.noConflict(true);
+        $("#userListTable").DataTable({
+            "language": {
+//              "sSearch": "搜索:",
+                "emptyTable": "没有找到任何用户",
+                "info": "从 _START_ 到  _END_ 条记录,共 _TOTAL_ 条记录",
+                "infoEmpty": "共 _TOTAL_ 条记录",
+                "infoPostFix": "",
+                "thousands": ".",
+                "loadingRecords": "数据加载中...",
+                "processing": "数据加载中...",
+                "zeroRecords": "没有数据",
+                "paginate": {
+                    "next": ">",
+                    "previous": "<"
+                }
+            },
+            "searching": true,
+            "bDestroy": true,
+            "bFilter": false,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bProcessing": true,
+            "bSort": true,
+            "order": [[ 1, "desc" ]],
+            "aaData" : aadata,
+            "aoColumnDefs" : [
+                { "aTargets" :　[0] },
+                { "aTargets" :　[1] },
+                { "aTargets" :　[2] },
+                { "aTargets" :　[3] },
+                { "aTargets" :　[4] ,"mRender": function (data, type, full, meta) {
+                    return formatTime(data);
+                }},
+            ]
+        });
+    };
+
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    var unixtime=1358932051;
+    function formatTime (time) {
+        unixtime = time
+        unixTimestamp = new Date(unixtime)
+        Y = unixTimestamp.getFullYear()
+        m = ((unixTimestamp.getMonth() + 1) > 10 ? (unixTimestamp.getMonth() + 1) : '0' + (unixTimestamp.getMonth() + 1))
+        D = (unixTimestamp.getDate() >= 10 ? unixTimestamp.getDate() : '0' + unixTimestamp.getDate());
+        H = (unixTimestamp.getHours() >= 10 ? unixTimestamp.getHours() : '0' + unixTimestamp.getHours());
+        M = (unixTimestamp.getMinutes() >= 10 ? unixTimestamp.getMinutes() : '0' + unixTimestamp.getMinutes());
+        S = (unixTimestamp.getSeconds() >= 10 ? unixTimestamp.getSeconds() : '0' + unixTimestamp.getSeconds());
+        toDay = Y + '-' + m + '-' + D + " " + H + ":" + M　+ ":" + S;
+
+        return toDay;
+    }
+</script>

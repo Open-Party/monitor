@@ -61,4 +61,8 @@ public class SysUserService implements UserDetailsService {
 
         return jsonResult;
     }
+
+    public List<SysUserEntity> getSysUserList() {
+        return sysUserDao.getSysUserList();
+    }
 }

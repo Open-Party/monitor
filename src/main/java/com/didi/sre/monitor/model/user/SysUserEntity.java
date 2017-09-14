@@ -24,8 +24,8 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
     public SysUserEntity() {
     }
 
-    public SysUserEntity(String name, String email, String password, Date dob, List<SysRoleEntity> roles) {
-        this.username = name;
+    public SysUserEntity(String username, String email, String password, Date dob, List<SysRoleEntity> roles) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.dob = dob;
@@ -59,10 +59,11 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
-        List<SysRoleEntity> roles = this.getRoles();
-        for (SysRoleEntity role : roles) {
-            auths.add(new SimpleGrantedAuthority(role.getName()));
-        }
+//        List<SysRoleEntity> roles = this.getRoles();
+//        for (SysRoleEntity role : roles) {
+//            auths.add(new SimpleGrantedAuthority(role.getName()));
+//        }
+        auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return auths;
     }
 

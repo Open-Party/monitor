@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        logger.info("Initializing user details auth service with md5 password encoder.");
         auth.userDetailsService(customUserService()).passwordEncoder(passwordEncoder()); //user Details Service auth.
         auth.eraseCredentials(false);
     }
@@ -59,7 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                //.antMatchers("/login", "/doLogin", "/register", "/doRegister", "/swagger/**", "/openapi/health", "/plugins/**", "/bootstrap/**", "/dist/**")
                 .antMatchers(ignorePathMatchers)
                 .permitAll()
                 .anyRequest().authenticated()
@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .logout()
                 .logoutUrl("/signOut")
-                .logoutSuccessUrl("/login") //退出登录后的默认网址是/login
+                .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .logoutSuccessHandler(new LogoutSuccessHandler())
                 .permitAll()
