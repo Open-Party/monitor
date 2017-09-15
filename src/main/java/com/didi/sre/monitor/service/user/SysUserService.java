@@ -65,4 +65,8 @@ public class SysUserService implements UserDetailsService {
     public List<SysUserEntity> getSysUserList() {
         return sysUserDao.getSysUserList();
     }
+
+    public void deleteSysUserById(long id) {
+        sysUserDao.deleteSysUserById(id);
+    }
 }

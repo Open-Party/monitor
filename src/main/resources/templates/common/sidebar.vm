@@ -38,8 +38,7 @@
             <li><a href="/index"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
-        <li><a href="/doc.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-        <li class="treeview">
+        <li class="treeview" ng-class="{active: '$!expand' == 'Account'}">
             <a href="#">
                 <i class="fa fa-users"></i>
                 <span>Account</span>
@@ -51,6 +50,7 @@
                 <li><a href="/account/userlist"><i class="fa fa-circle-o"></i> Users</a></li>
             </ul>
         </li>
+        <li><a href="/doc.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
         <li>
           <a href="pages/widgets.html">
             <i class="fa fa-th"></i> <span>Widgets</span>
