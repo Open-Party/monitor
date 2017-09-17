@@ -69,4 +69,9 @@ public class SysUserService implements UserDetailsService {
     public void deleteSysUserById(long id) {
         sysUserDao.deleteSysUserById(id);
     }
+
+    public void updateSysUser(SysUserEntity sysUserEntity) {
+        sysUserDao.updateSysUserEntity(sysUserEntity.getUsername(),
+                sysUserEntity.getEmail(), sysUserEntity.getPassword());
+    }
 }

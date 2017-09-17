@@ -18,17 +18,19 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
     private String email;
     private String password;
     private Date dob;
+    private boolean deleted;
 
     private List<SysRoleEntity> roles;
 
     public SysUserEntity() {
     }
 
-    public SysUserEntity(String username, String email, String password, Date dob, List<SysRoleEntity> roles) {
+    public SysUserEntity(String username, String email, String password, Date dob, boolean deleted, List<SysRoleEntity> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.dob = dob;
+        this.deleted = deleted;
         this.roles = roles;
     }
 
@@ -91,6 +93,14 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

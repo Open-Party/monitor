@@ -6,6 +6,8 @@
         <result property="username" column="USERNAME"/>
         <result property="email" column="EMAIL"/>
         <result property="password" column="PASSWORD"/>
+        <result property="deleted" column="DELETED"/>
+        <result property="dob" column="DOB"/>
         <collection property="roles" ofType="com.didi.sre.monitor.model.user.SysRoleEntity">
             <result property="name" column="NAME"/>
         </collection>
@@ -16,7 +18,7 @@
         from SysUser u
         LEFT JOIN SysRoleUser sru on u.id=sru.SysUserId
         LEFT JOIN SysRole r on sru.SysRoleId=r.id
-        where username=#{username}
+        where username=#{username} and deleted != 1;
     </select>
 
     <insert id="insertSysUserEntity" parameterType="com.didi.sre.monitor.model.user.SysUserEntity" useGeneratedKeys="true" keyProperty="id">

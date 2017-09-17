@@ -24,10 +24,10 @@ public interface SysUserDao {
     void updateSysUserEntity( @Param("username") String username,
             @Param("email") String email, @Param("password") String password);
 
-    @Select("select * from SysUser;")
+    @Select("SELECT * FROM SysUser WHERE deleted != 1;")
     List<SysUserEntity> getSysUserList();
 
-    @Delete("delete from SysUser where id=#{id};")
+    @Delete("UPDATE SysUser SET deleted = 1 WHERE id=#{id};")
     void deleteSysUserById(@Param("id") long id);
 }
 
