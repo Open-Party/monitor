@@ -18,17 +18,19 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
     private String email;
     private String password;
     private Date dob;
+    private boolean deleted;
 
     private List<SysRoleEntity> roles;
 
     public SysUserEntity() {
     }
 
-    public SysUserEntity(String name, String email, String password, Date dob, List<SysRoleEntity> roles) {
-        this.username = name;
+    public SysUserEntity(String username, String email, String password, Date dob, boolean deleted, List<SysRoleEntity> roles) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.dob = dob;
+        this.deleted = deleted;
         this.roles = roles;
     }
 
@@ -59,10 +61,11 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
-        List<SysRoleEntity> roles = this.getRoles();
-        for (SysRoleEntity role : roles) {
-            auths.add(new SimpleGrantedAuthority(role.getName()));
-        }
+//        List<SysRoleEntity> roles = this.getRoles();
+//        for (SysRoleEntity role : roles) {
+//            auths.add(new SimpleGrantedAuthority(role.getName()));
+//        }
+        auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return auths;
     }
 
@@ -90,6 +93,14 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

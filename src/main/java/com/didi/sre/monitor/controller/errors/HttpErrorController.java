@@ -24,7 +24,7 @@ public class HttpErrorController implements ErrorController {
         } else if (status.is5xxServerError()) {
             return "errors/500";
         }
-        return ERROR_PATH;
+        return getErrorPath();
     }
 
     @Override

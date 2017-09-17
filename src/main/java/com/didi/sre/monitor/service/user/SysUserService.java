@@ -61,4 +61,17 @@ public class SysUserService implements UserDetailsService {
 
         return jsonResult;
     }
+
+    public List<SysUserEntity> getSysUserList() {
+        return sysUserDao.getSysUserList();
+    }
+
+    public void deleteSysUserById(long id) {
+        sysUserDao.deleteSysUserById(id);
+    }
+
+    public void updateSysUser(SysUserEntity sysUserEntity) {
+        sysUserDao.updateSysUserEntity(sysUserEntity.getUsername(),
+                sysUserEntity.getEmail(), sysUserEntity.getPassword());
+    }
 }
