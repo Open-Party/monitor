@@ -55,18 +55,6 @@
 <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript">
-//    $(function () {
-//        $("#orderdataTable").DataTable();
-//        $('#example2').DataTable({
-//            "paging": true,
-//            "lengthChange": false,
-//            "searching": false,
-//            "ordering": true,
-//            "info": true,
-//            "autoWidth": false
-//        });
-//    });
-
     $(document).ready(function() {
         getUserListData();
     });

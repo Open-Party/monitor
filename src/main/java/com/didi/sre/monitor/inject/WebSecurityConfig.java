@@ -94,7 +94,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
         @Override
         public void onAuthenticationSuccess(HttpServletRequest request,
                                             HttpServletResponse response, Authentication authentication)
@@ -116,7 +115,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
-
         @Override
         public void onLogoutSuccess(HttpServletRequest request,
                                     HttpServletResponse response, Authentication authentication)
@@ -129,7 +127,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
         @Override
         public void commence(HttpServletRequest request,
                              HttpServletResponse response,
@@ -149,7 +146,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected String buildHttpReturnUrlForRequest(HttpServletRequest request)
             throws IOException, ServletException {
-
 
         RedirectUrlBuilder urlBuilder = new RedirectUrlBuilder();
         urlBuilder.setScheme("http");
