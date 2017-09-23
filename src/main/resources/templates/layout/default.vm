@@ -16,12 +16,12 @@
 </div>
 
 <script>
-//    if(typeof angular1215 !== "undefined") {
-//        console.log("recovery angular1215 by footer");
-//        window.angular = angular1215;
-//    }
+    if(typeof angular1215 !== "undefined") {
+        console.log("recovery angular1215 by footer");
+        window.angular = angular1215;
+    }
 
-//    angular.bootstrap($('#ng-monitor'),['monitor']);
+    angular.bootstrap($('#ng-monitor'),['monitor']);
 
     if(typeof angular1315 !== "undefined") {
         console.log("recovery angular1315 by footer");

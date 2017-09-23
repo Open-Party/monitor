@@ -47,7 +47,7 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="/account/userlist"><i class="fa fa-circle-o"></i> Users</a></li>
+                <li ng-class="{active: '$!adminSubMenu' == 'Account-User'}"><a href="/account/userlist"><i class="fa fa-circle-o"></i> Users</a></li>
             </ul>
         </li>
         <li><a href="/doc.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
