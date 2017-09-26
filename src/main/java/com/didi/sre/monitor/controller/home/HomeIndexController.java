@@ -21,7 +21,7 @@ public class HomeIndexController {
 
     @ApiOperation(value="Get index page.",notes="requires noting")
     @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.POST, RequestMethod.GET})
-    public String getIndexHome(Model model, HttpServletRequest request) {
+    public String getIndexHome() {
         return "home/index";
     }
 }

@@ -17,7 +17,7 @@ public class HttpErrorController implements ErrorController {
     private static final String ERROR_PATH = "/error";
 
     @RequestMapping(value = ERROR_PATH, method = RequestMethod.GET)
-    public String handleError(Model model, HttpServletRequest request) {
+    public String handleError(HttpServletRequest request) {
         HttpStatus status = getStatus(request);
         if (status.is4xxClientError()) {
             return "errors/404";
