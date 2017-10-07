@@ -83,6 +83,7 @@ public class AccountManageController {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(encoderPassword);
+        logger.debug("User " + username + " do register.");
 
         return sysUserService.insertSysUserEntity(user);
     }
