@@ -1,5 +1,7 @@
 create database monitor;
 
+use monitor;
+
 create table SysUser (id int not null auto_increment,
   username char(50) not null, email varchar(50) not null,
   password char(50) not null, dob timestamp default CURRENT_TIMESTAMP,

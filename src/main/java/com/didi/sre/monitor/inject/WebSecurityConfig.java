@@ -50,6 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         logger.info("Initializing user details auth service with md5 password encoder.");
         auth.userDetailsService(customUserService()).passwordEncoder(passwordEncoder()); //user Details Service auth.
         auth.eraseCredentials(false);
+
+        //auth
+        //    .inMemoryAuthentication()
+        //    .withUser("admin").password("admin").roles("USER");
     }
 
     @Override
