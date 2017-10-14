@@ -1,3 +1,6 @@
+#set($expand = "Index")
+#set($adminSubMenu = "Dashboard")
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>

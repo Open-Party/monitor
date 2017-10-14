@@ -39,6 +39,12 @@
 
 <!-- jQuery 2.2.3 -->
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <!-- DataTables -->
@@ -46,5 +52,5 @@
 <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- Angular -->
 <script src="/plugins/angular/angular.js"></script>
-
-<script src="/plugins/monitor/common.js?version=1.2" async></script>
+<script src="/plugins/monitor/common.js" async></script>
+<script src="/plugins/monitor/getUserInfos.js"></script>

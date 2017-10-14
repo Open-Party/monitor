@@ -6,11 +6,11 @@
 
 function getUserInfo() {
     var mydata ;
-    $.ajaxSetup({async:false});
-    $.get("/account/getUserAllInfo", function(data){
-        mydata = data;
-    });
-    $.ajaxSetup({async:true});
+    // $.ajaxSetup({async:false});
+    // $.get("/account/getUserAllInfo", function(data){
+    //     mydata = data;
+    // });
+    // $.ajaxSetup({async:true});
     return mydata;
 }
 
@@ -19,8 +19,9 @@ var userInfo = getUserInfo();
 var monitorModule = angular.module('monitor', []);
 
 monitorModule.controller('monitorController', ['$scope','$http','$window', function($scope,$http,$window) {
-    $scope.currentUser = userInfo.currentUser;
-    $scope.isAdmin = userInfo.isAdmin;
+    //$scope.currentUser = userInfo.currentUser;
+    //$scope.isAdmin = userInfo.isAdmin;
+    $scope.isAdmin = true;
     // $scope.isInspectInfo = true;
     $scope.changeApp = function () {
         // console.log(appName);
