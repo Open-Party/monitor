@@ -50,7 +50,3 @@
 <!-- DataTables -->
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- Angular -->
-<script src="/plugins/angular/angular.js"></script>
-<script src="/plugins/monitor/common.js" async></script>
-<script src="/plugins/monitor/getUserInfos.js"></script>
