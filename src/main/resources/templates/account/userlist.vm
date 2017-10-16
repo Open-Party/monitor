@@ -32,6 +32,7 @@
                                 <th>Email</th>
                                 <th>Password</th>
                                 <th>Date</th>
+                                <th>Operation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,6 +82,7 @@
                 userdata.push(userList[i].email);
                 userdata.push(userList[i].password);
                 userdata.push(userList[i].dob);
+                userdata.push('<a class = "save" href="javascript:void(0)">保存</a>');
                 aadata.push(userdata);
             }
         }
@@ -119,6 +121,7 @@
                 { "aTargets" :　[4] ,"mRender": function (data, type, full, meta) {
                     return formatTime(data);
                 }},
+                { "aTargets" :  [5]},
             ]
         });
     };
