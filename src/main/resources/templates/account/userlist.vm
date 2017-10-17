@@ -74,6 +74,8 @@
 
     function showUserListTable(userList) {
         var aadata = new Array();
+        var selected = [];
+
         if (userList.length != 0) {
             for (var i = 0; i < userList.length; i++) {
                 var userdata = new Array();
@@ -99,6 +101,11 @@
                 "loadingRecords": "数据加载中...",
                 "processing": "数据加载中...",
                 "zeroRecords": "没有数据",
+                "rowCallback": function( row, data ) {
+                    if ( $.inArray(data.id, selected) !== -1 ) {
+                        $(row).addClass('selected');
+                    }
+                },
                 "paginate": {
                     "next": ">",
                     "previous": "<"
@@ -124,6 +131,19 @@
                 { "aTargets" :  [5]},
             ]
         });
+
+        $('#userListTable tbody').on('click', 'tr', function () {
+            var id = this.id;
+            var index = $.inArray(id, selected);
+
+            if ( index === -1 ) {
+                selected.push(id);
+            } else {
+                selected.splice(index, 1);
+            }
+
+            $(this).toggleClass('selected');
+        } );
     };
 
     Date.prototype.Format = function (fmt) {
