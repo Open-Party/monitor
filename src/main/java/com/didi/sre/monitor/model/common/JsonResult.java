@@ -3,9 +3,8 @@ package com.didi.sre.monitor.model.common;
 import java.io.Serializable;
 
 /**
- * Created by soarpenguin on 17-8-12.
+ * @author soarpenguin on 17-8-12.
  */
-
 public class JsonResult implements Serializable {
 
     private static final long serialVersionUID = 3047368827628740529L;

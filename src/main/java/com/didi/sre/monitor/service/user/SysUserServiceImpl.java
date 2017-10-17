@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by soarpenguin on 17-9-9.
+ * @author soarpenguin on 17-9-9.
  */
 @Service
-public class SysUserService implements UserDetailsService {
-    private static Logger logger = Logger.getLogger(SysUserService.class);
+public class SysUserServiceImpl implements UserDetailsService {
+    private static Logger logger = Logger.getLogger(SysUserServiceImpl.class);
 
     @Autowired
     SysUserDao sysUserDao;

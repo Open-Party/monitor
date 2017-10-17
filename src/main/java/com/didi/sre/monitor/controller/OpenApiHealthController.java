@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by soarpenguin on 17-8-12.
+ * @author soarpenguin on 17-8-12.
  */
 @RestController
 public class OpenApiHealthController {

@@ -13,9 +13,8 @@ import java.net.UnknownHostException;
 import java.util.Map;
 
 /**
- * Created by soarpenguin on 17-8-10.
+ * @author soarpenguin on 17-8-10.
  */
-
 @Configuration
 public class VelocityLayoutConfig {
     @Autowired

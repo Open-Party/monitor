@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.security.MessageDigest;
 
 /**
- * Created by soarpenguin on 17-9-13.
+ * @author soarpenguin on 17-9-13.
  */
 public class MD5PasswordEncoder implements PasswordEncoder {
     private static final Logger logger = LoggerFactory.getLogger(MD5PasswordEncoder.class);

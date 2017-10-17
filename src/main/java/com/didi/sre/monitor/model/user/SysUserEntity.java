@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by soarpenguin on 17-8-24.
+ * @author soarpenguin on 17-8-24.
  */
 public class SysUserEntity implements UserDetails, java.io.Serializable {
     private Long id;
@@ -61,10 +61,10 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
-//        List<SysRoleEntity> roles = this.getRoles();
-//        for (SysRoleEntity role : roles) {
-//            auths.add(new SimpleGrantedAuthority(role.getName()));
-//        }
+//      List<SysRoleEntity> roles = this.getRoles();
+//      for (SysRoleEntity role : roles) {
+//          auths.add(new SimpleGrantedAuthority(role.getName()));
+//      }
         auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return auths;
     }

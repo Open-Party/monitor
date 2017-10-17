@@ -3,7 +3,7 @@ package com.didi.sre.monitor.controller.account;
 import com.didi.sre.monitor.model.common.JsonResult;
 import com.didi.sre.monitor.model.common.MD5PasswordEncoder;
 import com.didi.sre.monitor.model.user.SysUserEntity;
-import com.didi.sre.monitor.service.user.SysUserService;
+import com.didi.sre.monitor.service.user.SysUserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,14 +19,14 @@ import java.util.List;
 import static com.didi.sre.monitor.inject.WebMvcConfig.SESSION_KEY;
 
 /**
- * Created by soarpenguin on 17-9-13.
+ * @author soarpenguin on 17-9-13.
  */
 @Controller
 public class AccountManageController {
     private static Logger logger = Logger.getLogger(AccountManageController.class);
 
     @Autowired
-    SysUserService sysUserService;
+    SysUserServiceImpl sysUserService;
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String getLogin() {
@@ -59,8 +59,9 @@ public class AccountManageController {
     public String doSignOut(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        if (session.getAttribute(SESSION_KEY) != null)
+        if (session.getAttribute(SESSION_KEY) != null) {
             session.removeAttribute(SESSION_KEY);
+        }
 
         return "redirect:/login";
     }

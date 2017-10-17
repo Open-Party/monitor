@@ -10,14 +10,19 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 /**
- * Created by soarpenguin on 17-9-9.
+ * @author  soarpenguin on 17-9-9.
  */
 @Mapper
 public interface SysUserDao {
 
     SysUserEntity findByUserName(String username);
 
-    //@Insert()
+    /*
+     * insert user entity to table.
+     *
+     * @param SysUserEntity
+     * @return
+     */
     void insertSysUserEntity(SysUserEntity sysUserEntity);
 
     @Update("UPDATE SysUser SET email=#{email}, password=#{password} WHERE username=#{username}")
@@ -27,6 +32,12 @@ public interface SysUserDao {
     @Select("SELECT * FROM SysUser WHERE deleted != 1;")
     List<SysUserEntity> getSysUserList();
 
+    /*
+     * delete user by id.
+     *
+     * @param id user id.
+     * @return
+     */
     @Delete("UPDATE SysUser SET deleted = 1 WHERE id=#{id};")
     void deleteSysUserById(@Param("id") long id);
 }

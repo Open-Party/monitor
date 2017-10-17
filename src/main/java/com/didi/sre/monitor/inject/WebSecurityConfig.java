@@ -1,7 +1,7 @@
 package com.didi.sre.monitor.inject;
 
 import com.didi.sre.monitor.model.common.MD5PasswordEncoder;
-import com.didi.sre.monitor.service.user.SysUserService;
+import com.didi.sre.monitor.service.user.SysUserServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by soarpenguin on 9/5/17.
+ * @author soarpenguin on 9/5/17.
  */
 @Configuration
 @EnableWebSecurity
@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     UserDetailsService customUserService() { // 注册UserDetailsService
-        return new SysUserService();
+        return new SysUserServiceImpl();
     }
 
     @Override

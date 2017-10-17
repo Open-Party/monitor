@@ -9,7 +9,7 @@ import org.springframework.core.env.Environment;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
- * Created by soarpenguin on 17-9-9.
+ * @author soarpenguin on 17-9-9.
  */
 @Configuration
 public class MysqlDBConfig {

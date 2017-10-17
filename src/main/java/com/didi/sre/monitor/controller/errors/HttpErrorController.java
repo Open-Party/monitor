@@ -3,14 +3,13 @@ package com.didi.sre.monitor.controller.errors;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by soarpenguin on 17-8-14.
+ * @author soarpenguin on 17-8-14.
  */
 @Controller
 public class HttpErrorController implements ErrorController {

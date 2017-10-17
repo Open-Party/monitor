@@ -4,9 +4,8 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.*;
 
 /**
- * Created by soarpenguin on 17-8-26.
+ * @author soarpenguin on 17-8-26.
  */
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented

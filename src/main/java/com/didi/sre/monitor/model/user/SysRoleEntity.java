@@ -1,9 +1,8 @@
 package com.didi.sre.monitor.model.user;
 
 /**
- * Created by soarpenguin on 17-8-24.
+ * @author soarpenguin on 17-8-24.
  */
-
 public class SysRoleEntity {
     private Long id;
     private String name;

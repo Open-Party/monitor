@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * Created by soarpenguin on 17-8-27.
+ * @author soarpenguin on 17-8-27.
  */
 public class HttpClientUtil {
     private static Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);

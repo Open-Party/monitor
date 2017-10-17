@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import javax.sql.DataSource;
 
 /**
- * Created by soarpenguin on 17-9-9.
+ * @author soarpenguin on 17-9-9.
  */
 @Configuration
 @ComponentScan

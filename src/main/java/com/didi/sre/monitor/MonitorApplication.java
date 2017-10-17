@@ -10,6 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
+/**
+ * @author soarpenguin on 9/5/17.
+ */
 @ComponentScan(basePackages ="com.didi.sre.monitor")
 @SpringBootApplication
 public class MonitorApplication {
