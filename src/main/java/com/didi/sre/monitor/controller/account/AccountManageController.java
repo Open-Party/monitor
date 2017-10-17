@@ -26,7 +26,7 @@ public class AccountManageController {
     private static Logger logger = Logger.getLogger(AccountManageController.class);
 
     @Autowired
-    SysUserServiceImpl sysUserService;
+    SysUserServiceImpl sysUserServiceImpl;
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String getLogin() {
@@ -86,7 +86,7 @@ public class AccountManageController {
         user.setPassword(encoderPassword);
         logger.debug("User " + username + " do register.");
 
-        return sysUserService.insertSysUserEntity(user);
+        return sysUserServiceImpl.insertSysUserEntity(user);
     }
 
     @RequestMapping(value = {"/account/userlist"}, method = RequestMethod.GET)
@@ -98,7 +98,7 @@ public class AccountManageController {
     @ResponseBody
     public JsonResult getUserJson() {
         JsonResult jsonResult = new JsonResult(false);
-        List<SysUserEntity> users = sysUserService.getSysUserList();
+        List<SysUserEntity> users = sysUserServiceImpl.getSysUserList();
 
         if (users != null) {
             jsonResult.setData(users);
