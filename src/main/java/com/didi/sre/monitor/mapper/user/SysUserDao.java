@@ -15,25 +15,44 @@ import java.util.List;
 @Mapper
 public interface SysUserDao {
 
+    /**
+     * Find user entity by username..
+     *
+     * @param username
+     * @return SysUserEntity
+     */
     SysUserEntity findByUserName(String username);
 
-    /*
-     * insert user entity to table.
+    /**
+     * Insert user entity to table.
      *
-     * @param SysUserEntity
+     * @param sysUserEntity
      * @return
      */
     void insertSysUserEntity(SysUserEntity sysUserEntity);
 
+    /**
+     * Update user info by username..
+     *
+     * @param username user name.
+     * @param email user email.
+     * @param password user password.
+     * @return
+     */
     @Update("UPDATE SysUser SET email=#{email}, password=#{password} WHERE username=#{username}")
     void updateSysUserEntity( @Param("username") String username,
             @Param("email") String email, @Param("password") String password);
 
+    /**
+     * Get user list.
+     *
+     * @return List of SysUserEntity
+     */
     @Select("SELECT * FROM SysUser WHERE deleted != 1;")
     List<SysUserEntity> getSysUserList();
 
-    /*
-     * delete user by id.
+    /**
+     * Delete user by id.
      *
      * @param id user id.
      * @return

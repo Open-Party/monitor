@@ -52,6 +52,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		@Override
 		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 				throws Exception {
+			return true;
+
 //			HttpSession session = request.getSession();
 //			if (session.getAttribute(SESSION_KEY) != null)
 //				return true;
@@ -60,7 +62,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 //			String url = "/login";
 //			response.sendRedirect(url);
 //			return false;
-			return true;
+
 		}
 
         @Override

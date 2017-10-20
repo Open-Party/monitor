@@ -33,7 +33,7 @@ import java.io.IOException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static Logger logger = Logger.getLogger(WebSecurityConfig.class);
 
-    private static final String[] ignorePathMatchers = new String[]{
+    private static final String[] IGNORE_PATH_MATCHERS = new String[]{
         "/login", "/doLogin", "/register", "/doRegister", "/swagger/**", "/openapi/health",
         "/plugins/**/*.js", "/plugins/**/*.css", "/plugins/**/*.png",
         "/bootstrap/**/*.js", "/bootstrap/**/*.css", "/bootstrap/**/*.woff2",
@@ -48,7 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         logger.info("Initializing user details auth service with md5 password encoder.");
-        auth.userDetailsService(customUserService()).passwordEncoder(passwordEncoder()); //user Details Service auth.
+        //user Details Service auth.
+        auth.userDetailsService(customUserService()).passwordEncoder(passwordEncoder());
         auth.eraseCredentials(false);
 
         //auth
@@ -64,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers(ignorePathMatchers)
+                .antMatchers(IGNORE_PATH_MATCHERS)
                 .permitAll()
                 .anyRequest().authenticated()
                 .antMatchers("/admin").hasAuthority("ADMIN")

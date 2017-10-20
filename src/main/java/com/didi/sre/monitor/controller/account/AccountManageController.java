@@ -40,7 +40,7 @@ public class AccountManageController {
                               @RequestParam(value = "password")  String password) {
         JsonResult jsonResult = new JsonResult(false);
 
-        if(!username.equals("") && password != "") {
+        if(!"".equals(username) && password != "") {
             SysUserEntity user = new SysUserEntity();
             user.setId(1L);
             user.setUsername(username);

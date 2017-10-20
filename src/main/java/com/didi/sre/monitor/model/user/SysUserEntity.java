@@ -61,6 +61,7 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
+
 //      List<SysRoleEntity> roles = this.getRoles();
 //      for (SysRoleEntity role : roles) {
 //          auths.add(new SimpleGrantedAuthority(role.getName()));

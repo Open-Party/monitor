@@ -35,7 +35,8 @@ public class HttpClientUtil {
         byte[] responseBytes = null;
 
         HttpPost httpPost = new HttpPost(reqURL);
-        CloseableHttpClient httpClient = HttpClients.custom().disableAutomaticRetries().build();	// disable retry
+        // disable retry
+        CloseableHttpClient httpClient = HttpClients.custom().disableAutomaticRetries().build();
 
         try {
             // timeout
