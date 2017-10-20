@@ -10,8 +10,8 @@ import java.security.MessageDigest;
 /**
  * @author soarpenguin on 17-9-13.
  */
-public class MD5PasswordEncoder implements PasswordEncoder {
-    private static final Logger logger = LoggerFactory.getLogger(MD5PasswordEncoder.class);
+public class Md5PasswordEncoder implements PasswordEncoder {
+    private static final Logger logger = LoggerFactory.getLogger(Md5PasswordEncoder.class);
 
     @Override
     public String encode(CharSequence charSequence) {

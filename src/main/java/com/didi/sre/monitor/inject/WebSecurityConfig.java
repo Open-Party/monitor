@@ -1,6 +1,6 @@
 package com.didi.sre.monitor.inject;
 
-import com.didi.sre.monitor.model.common.MD5PasswordEncoder;
+import com.didi.sre.monitor.model.common.Md5PasswordEncoder;
 import com.didi.sre.monitor.service.user.SysUserServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -90,8 +90,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public MD5PasswordEncoder passwordEncoder() {
-        return new MD5PasswordEncoder();
+    public Md5PasswordEncoder passwordEncoder() {
+        return new Md5PasswordEncoder();
     }
 
     protected boolean isAjax(HttpServletRequest request) {

@@ -1,7 +1,7 @@
 package com.didi.sre.monitor.controller.account;
 
 import com.didi.sre.monitor.model.common.JsonResult;
-import com.didi.sre.monitor.model.common.MD5PasswordEncoder;
+import com.didi.sre.monitor.model.common.Md5PasswordEncoder;
 import com.didi.sre.monitor.model.user.SysUserEntity;
 import com.didi.sre.monitor.service.user.SysUserServiceImpl;
 import org.apache.log4j.Logger;
@@ -77,7 +77,7 @@ public class AccountManageController {
                                  @RequestParam(value = "email") String email,
                                  @RequestParam(value = "password")  String password) {
 
-        MD5PasswordEncoder md5PasswordEncoder = new MD5PasswordEncoder();
+        Md5PasswordEncoder md5PasswordEncoder = new Md5PasswordEncoder();
         String encoderPassword = md5PasswordEncoder.encode(password);
 
         SysUserEntity user = new SysUserEntity();
