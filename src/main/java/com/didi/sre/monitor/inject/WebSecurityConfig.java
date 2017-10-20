@@ -84,8 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(new LogoutSuccessHandler())
                 .permitAll()
            .and()
-              .rememberMe()//登录后记住用户,下次自动登录,数据库中必须存在名为persistent_logins的表
-              .tokenValiditySeconds(1209600);
+                .rememberMe()//登录后记住用户,下次自动登录,数据库中必须存在名为persistent_logins的表
+                .tokenValiditySeconds(1209600);
     }
 
     @Bean
