@@ -12,7 +12,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * @author soarpenguin on 17-9-9.
  */
 @Configuration
-public class MysqlDBConfig {
+public class MysqlDbConfig {
     @Autowired
     private Environment env;
 
