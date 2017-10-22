@@ -62,10 +62,10 @@ public class SysUserEntity implements UserDetails, java.io.Serializable {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        List<SysRoleEntity> roles = this.getRoles();
-        for (SysRoleEntity role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
+//        List<SysRoleEntity> roles = this.getRoles();
+//        for (SysRoleEntity role : roles) {
+//            authorities.add(new SimpleGrantedAuthority(role.getName()));
+//        }
 
         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return authorities;

@@ -1,5 +1,5 @@
 #set($expand = "Account")
-#set($adminSubMenu = "Account-User")
+#set($adminSubMenu = "Account-List")
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -24,10 +24,10 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="userListTable" class="table table-bordered table-hover">
+                    <table id="userListTable" class="table table-bordered table-hover display">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th align="center">ID</th>
                                 <th>UserName</th>
                                 <th>Email</th>
                                 <th>Password</th>
@@ -120,6 +120,7 @@
             "bSort": true,
             "order": [[ 1, "desc" ]],
             "aaData" : aadata,
+            select: true,
             "aoColumnDefs" : [
                 { "aTargets" :　[0] },
                 { "aTargets" :　[1] },
