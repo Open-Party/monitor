@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         "/login", "/doLogin", "/register", "/doRegister", "/swagger/**", "/openapi/health",
         "/plugins/**/*.js", "/plugins/**/*.css", "/plugins/**/*.png",
         "/bootstrap/**/*.js", "/bootstrap/**/*.css", "/bootstrap/**/*.woff2",
-        "/dist/**/*.js", "/dist/**/*.css"
+        "/dist/**/*.js", "/dist/**/*.css", "/defaultKaptcha",
     };
 
     @Bean

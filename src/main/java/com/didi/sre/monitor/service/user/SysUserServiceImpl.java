@@ -6,6 +6,7 @@ import com.didi.sre.monitor.model.user.SysRoleEntity;
 import com.didi.sre.monitor.model.user.SysUserEntity;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,7 +36,7 @@ public class SysUserServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("UserName " + username + " not found.");
         }
 
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
         for(SysRoleEntity role:user.getRoles()) {
             logger.debug("User role is: " + role.getName());
             authorities.add(new SimpleGrantedAuthority(role.getName()));

@@ -45,6 +45,10 @@
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
+            <div class="form-group">
+                <input type="text" style="width:55%;height:34px;" name="vrifyCode" required/>
+                <img alt="验证码" style="width:43%;height:34px;" onclick = "this.src='/defaultKaptcha?d='+new Date()*1" src="/defaultKaptcha" />
+            </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
