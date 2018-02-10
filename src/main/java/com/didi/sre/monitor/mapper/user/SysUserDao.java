@@ -24,6 +24,16 @@ public interface SysUserDao {
     SysUserEntity findByUserName(String username);
 
     /**
+     * Find user entity by username..
+     *
+     * @param username
+     * @param email
+     * @return SysUserEntity
+     */
+    @Select("SELECT * FROM SysUser WHERE (username=#{username} or email=#{email}) and deleted != 1;")
+    SysUserEntity findByUserNameOrEmail(String username, String email);
+
+    /**
      * Insert user entity to table.
      *
      * @param sysUserEntity

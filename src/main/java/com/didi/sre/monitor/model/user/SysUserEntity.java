@@ -1,9 +1,12 @@
 package com.didi.sre.monitor.model.user;
 
+import com.didi.sre.monitor.annotation.ValidEmail;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -14,8 +17,18 @@ import java.util.List;
  */
 public class SysUserEntity implements UserDetails, java.io.Serializable {
     private Long id;
+
+    @NotNull
+    @NotEmpty
     private String username;
+
+    @ValidEmail
+    @NotNull
+    @NotEmpty
     private String email;
+
+    @NotNull
+    @NotEmpty
     private String password;
     private Date dob;
     private boolean deleted;

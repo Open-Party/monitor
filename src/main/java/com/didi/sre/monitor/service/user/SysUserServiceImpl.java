@@ -44,11 +44,21 @@ public class SysUserServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
+    private static List<GrantedAuthority> getAuthorities (List<String> roles) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (String role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+        return authorities;
+    }
+
     public JsonResult insertSysUserEntity(SysUserEntity sysUserEntity) {
         JsonResult jsonResult = new JsonResult(false);
 
         if(sysUserEntity != null) {
             SysUserEntity user = sysUserDao.findByUserName(sysUserEntity.getUsername());
+            // TODO
+            // SysUserEntity user = sysUserDao.findByUserNameOrEmail(sysUserEntity.getUsername(), sysUserEntity.getEmail());
             if (user != null) {
                 jsonResult.setMessage("User " + sysUserEntity.getUsername() + " is existed.");
                 jsonResult.setSuccess(false);

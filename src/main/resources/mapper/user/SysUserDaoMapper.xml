@@ -14,12 +14,20 @@
     </resultMap>
 
     <select id="findByUserName" parameterType="String" resultMap="userMap">
-        select u.*, r.name
-        from SysUser u
-        LEFT JOIN SysRoleUser sru on u.id=sru.SysUserId
-        LEFT JOIN SysRole r on sru.SysRoleId=r.id
-        where username=#{username} and deleted != 1;
+        SELECT u.*, r.name
+        FROM SysUser u
+        LEFT JOIN SysRoleUser sru ON u.id=sru.SysUserId
+        LEFT JOIN SysRole r ON sru.SysRoleId=r.id
+        WHERE username=#{username} AND deleted != 1;
     </select>
+
+    <!-- <select id="findByUserNameOrEmail" parameterType="String" resultMap="userMap">
+        SELECT u.*, r.name
+        FROM SysUser u
+        LEFT JOIN SysRoleUser sru ON u.id=sru.SysUserId
+        LEFT JOIN SysRole r ON sru.SysRoleId=r.id
+        WHERE (username=#{username} OR email=#{email}) AND deleted != 1;
+    </select>-->
 
     <insert id="insertSysUserEntity" parameterType="com.didi.sre.monitor.model.user.SysUserEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO SysUser(
@@ -27,7 +35,7 @@
             email,
             password
         )
-        values (
+        VALUES (
             #{username},
             #{email},
             #{password}
